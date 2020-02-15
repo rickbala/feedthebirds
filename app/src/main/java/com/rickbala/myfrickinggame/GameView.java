@@ -51,6 +51,7 @@ public class GameView extends View{
     int give = 0;
     int take = 0;
     int bg = 0;
+    int next = 0;
 
     Paint scorePaint;
     final int TEXT_SIZE = 60;
@@ -113,6 +114,7 @@ public class GameView extends View{
         sp = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         give = sp.load(context, R.raw.give, 1);
         take = sp.load(context, R.raw.take, 1);
+        next = sp.load(context, R.raw.next, 1);
         bg = sp.load(context, R.raw.bg, 1);
 
         scorePaint = new Paint();
@@ -188,6 +190,7 @@ public class GameView extends View{
 
                     birds.get(0).resetPosition(count);
                     count++;
+                    playNextLevel();
                     grains.remove(i);
                     if (take != 0){
                         sp.play(take, 1, 1, 0, 0, 1);
@@ -203,6 +206,7 @@ public class GameView extends View{
 
                     birds.get(1).resetPosition(count);
                     count++;
+                    playNextLevel();
                     grains.remove(i);
                     if (take != 0){
                         sp.play(take, 1, 1, 0, 0, 1);
@@ -218,6 +222,7 @@ public class GameView extends View{
 
                     butterflies.get(0).resetPosition(count);
                     count++;
+                    playNextLevel();
                     grains.remove(i);
                     if (take != 0){
                         sp.play(take, 1, 1, 0, 0, 1);
@@ -233,6 +238,7 @@ public class GameView extends View{
 
                     butterflies.get(1).resetPosition(count);
                     count++;
+                    playNextLevel();
                     grains.remove(i);
                     if (take != 0){
                         sp.play(take, 1, 1, 0, 0, 1);
@@ -258,6 +264,13 @@ public class GameView extends View{
         canvas.drawRect(dWidth - 110, 10, dWidth - 110 + 10*life, TEXT_SIZE, healthPaint);
 
         handler.postDelayed(runnable, UPDATE_MILIS); //delay, increases performance
+    }
+
+    public void playNextLevel(){
+        if (next != 0)
+            if (count == 15 || count == 30 || count == 45 || count == 60 || count == 75 ||
+                count == 90 || count == 105 || count == 120 )
+                sp.play(next, 1, 1, 1, 0, 1);
     }
 
     @Override

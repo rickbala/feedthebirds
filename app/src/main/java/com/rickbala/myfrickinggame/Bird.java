@@ -55,7 +55,7 @@ public class Bird{
     public void resetPosition(int count){
         birdX = GameView.dWidth + random.nextInt(1000);
         birdY = random.nextInt(500);
-        velocity = 7 + random.nextInt(10) * (count/18);
+        velocity = 7 + random.nextInt(8) * (count/17);
         birdFrame = 0;
     }
 

@@ -40,6 +40,7 @@ public class Butterfly extends Bird {
     public void resetPosition(int count) {
         birdX = -(200 + random.nextInt(700));
         birdY = random.nextInt(400);
-        velocity = 5 + random.nextInt(7) * (count/15) + 1;
+        velocity = 5 + random.nextInt(6) * (count/14) + 1;
+        birdFrame = 0;
     }
 }
