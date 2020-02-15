@@ -51,6 +51,7 @@ public class GameView extends View{
     SoundPool sp;
     int give = 0;
     int take = 0;
+    int bg = 0;
 
     Paint scorePaint;
     final int TEXT_SIZE = 60;
@@ -104,6 +105,7 @@ public class GameView extends View{
         sp = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         give = sp.load(context, R.raw.give, 1);
         take = sp.load(context, R.raw.take, 1);
+        bg = sp.load(context, R.raw.bg, 1);
 
         scorePaint = new Paint();
         scorePaint.setColor(Color.YELLOW);
@@ -258,4 +260,5 @@ public class GameView extends View{
         }
         return true;
     }
+
 }
