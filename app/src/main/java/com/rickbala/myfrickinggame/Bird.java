@@ -37,7 +37,7 @@ public class Bird{
         bitmaps[16] = BitmapFactory.decodeResource(context.getResources(), R.drawable.frame_16);
         bitmaps[17] = BitmapFactory.decodeResource(context.getResources(), R.drawable.frame_17);
         random = new Random();
-        resetPosition();
+        resetPosition(1);
     }
 
     public Bitmap getBitmap(){
@@ -52,10 +52,10 @@ public class Bird{
         return bitmaps[0].getHeight();
     }
 
-    public void resetPosition(){
+    public void resetPosition(int count){
         birdX = GameView.dWidth + random.nextInt(1000);
         birdY = random.nextInt(500);
-        velocity = 8 + random.nextInt(12);
+        velocity = 7 + random.nextInt(10) * (count/18);
         birdFrame = 0;
     }
 

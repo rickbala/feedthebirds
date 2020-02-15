@@ -2,7 +2,6 @@ package com.rickbala.myfrickinggame;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 
 public class GameView extends View{
 
-    Bitmap background;
+    Bitmap background0,background1,background2,background3,background4,background5,background6,background7,background8;
     Bitmap hand;
     Rect rect;
 
@@ -63,7 +62,16 @@ public class GameView extends View{
         super(context);
         this.context = context; //?
 
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        background0 = BitmapFactory.decodeResource(getResources(), R.drawable.background0);
+        background1 = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+        background2 = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
+        background3 = BitmapFactory.decodeResource(getResources(), R.drawable.background3);
+        background4 = BitmapFactory.decodeResource(getResources(), R.drawable.background4);
+        background5 = BitmapFactory.decodeResource(getResources(), R.drawable.background5);
+        background6 = BitmapFactory.decodeResource(getResources(), R.drawable.background6);
+        background7 = BitmapFactory.decodeResource(getResources(), R.drawable.background7);
+        background8 = BitmapFactory.decodeResource(getResources(), R.drawable.background8);
+
         hand = BitmapFactory.decodeResource(getResources(), R.drawable.hand);
 
         Display display = ((Activity)getContext()).getWindowManager().getDefaultDisplay();
@@ -126,7 +134,15 @@ public class GameView extends View{
             ((Activity) context).finish();
         }
 
-        canvas.drawBitmap(background, null, rect, null);
+        if (count > 125) canvas.drawBitmap(background8, null, rect, null);
+        else if (count > 110) canvas.drawBitmap(background7, null, rect, null);
+        else if (count > 90) canvas.drawBitmap(background6, null, rect, null);
+        else if (count > 75) canvas.drawBitmap(background5, null, rect, null);
+        else if (count > 60) canvas.drawBitmap(background4, null, rect, null);
+        else if (count > 45) canvas.drawBitmap(background3, null, rect, null);
+        else if (count > 30) canvas.drawBitmap(background2, null, rect, null);
+        else if (count > 15) canvas.drawBitmap(background1, null, rect, null);
+        else if (count >= 0) canvas.drawBitmap(background0, null, rect, null);
 
         for (Bird b:birds){
             canvas.drawBitmap(b.getBitmap(), b.birdX, b.birdY, null);
@@ -136,7 +152,7 @@ public class GameView extends View{
             }
             b.birdX -= b.velocity;
             if (b.birdX < -b.getWidth()){
-                b.resetPosition();
+                b.resetPosition(count);
                 life--;
             }
         }
@@ -149,7 +165,7 @@ public class GameView extends View{
             }
             b.birdX += b.velocity;
             if (b.birdX > dWidth + b.getWidth()){
-                b.resetPosition();
+                b.resetPosition(count);
                 life--;
             }
         }
@@ -170,7 +186,7 @@ public class GameView extends View{
                     hearted.heartedY = birds.get(0).birdY + birds.get(0).getHeight() / 2 - hearted.getHeartedHeight() / 2;
                     hearteds.add(hearted);
 
-                    birds.get(0).resetPosition();
+                    birds.get(0).resetPosition(count);
                     count++;
                     grains.remove(i);
                     if (take != 0){
@@ -185,7 +201,7 @@ public class GameView extends View{
                     hearted.heartedY = birds.get(1).birdY + birds.get(1).getHeight() / 2 - hearted.getHeartedHeight() / 2;
                     hearteds.add(hearted);
 
-                    birds.get(1).resetPosition();
+                    birds.get(1).resetPosition(count);
                     count++;
                     grains.remove(i);
                     if (take != 0){
@@ -200,7 +216,7 @@ public class GameView extends View{
                     hearted.heartedY = butterflies.get(0).birdY + butterflies.get(0).getHeight() / 2 - hearted.getHeartedHeight() / 2;
                     hearteds.add(hearted);
 
-                    butterflies.get(0).resetPosition();
+                    butterflies.get(0).resetPosition(count);
                     count++;
                     grains.remove(i);
                     if (take != 0){
@@ -215,7 +231,7 @@ public class GameView extends View{
                     hearted.heartedY = butterflies.get(1).birdY + butterflies.get(1).getHeight() / 2 - hearted.getHeartedHeight() / 2;
                     hearteds.add(hearted);
 
-                    butterflies.get(1).resetPosition();
+                    butterflies.get(1).resetPosition(count);
                     count++;
                     grains.remove(i);
                     if (take != 0){

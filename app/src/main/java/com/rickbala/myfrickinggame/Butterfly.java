@@ -18,7 +18,7 @@ public class Butterfly extends Bird {
         bitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.butterfly_4);
         bitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.butterfly_5);
         bitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.butterfly_6);
-        resetPosition();
+        resetPosition(1);
     }
 
     @Override
@@ -37,9 +37,9 @@ public class Butterfly extends Bird {
     }
 
     @Override
-    public void resetPosition() {
+    public void resetPosition(int count) {
         birdX = -(200 + random.nextInt(700));
         birdY = random.nextInt(400);
-        velocity = 5 + random.nextInt(8);
+        velocity = 5 + random.nextInt(7) * (count/15) + 1;
     }
 }
