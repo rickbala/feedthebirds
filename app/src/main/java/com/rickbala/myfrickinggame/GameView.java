@@ -2,9 +2,12 @@ package com.rickbala.myfrickinggame;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.AudioManager;
@@ -26,6 +29,7 @@ public class GameView extends View{
     ArrayList<Bird> birds;
     ArrayList<Butterfly> butterflies;
     ArrayList<Grain> grains;
+    ArrayList<Hearted> hearteds;
 
     int numberOfBirds;
     int numberOfButterflies;
@@ -48,6 +52,12 @@ public class GameView extends View{
     int give = 0;
     int take = 0;
 
+    Paint scorePaint;
+    final int TEXT_SIZE = 60;
+
+    Paint healthPaint;
+    int life = 10;
+
     public GameView(Context context){
         super(context);
         this.context = context; //?
@@ -61,6 +71,7 @@ public class GameView extends View{
         dWidth = size.x;
         dHeight = size.y;
         rect = new Rect(0, 0, dWidth, dHeight);
+        hearteds = new ArrayList<>();
 
         birds = new ArrayList<>();
         numberOfBirds = 2;
@@ -93,11 +104,26 @@ public class GameView extends View{
         sp = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         give = sp.load(context, R.raw.give, 1);
         take = sp.load(context, R.raw.take, 1);
+
+        scorePaint = new Paint();
+        scorePaint.setColor(Color.YELLOW);
+        scorePaint.setTextSize(TEXT_SIZE);
+        scorePaint.setTextAlign(Paint.Align.LEFT);
+
+        healthPaint = new Paint();
+        healthPaint.setColor(Color.RED);
     }
 
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
+        if (life < 1){
+            //Intent intent = new Intent(context, GameOver.class);
+            //intent.putExtra("Score", (count * 10));
+            //context.startActivity(intent);
+            ((Activity) context).finish();
+        }
+
         canvas.drawBitmap(background, null, rect, null);
 
         for (Bird b:birds){
@@ -109,6 +135,7 @@ public class GameView extends View{
             b.birdX -= b.velocity;
             if (b.birdX < -b.getWidth()){
                 b.resetPosition();
+                life--;
             }
         }
 
@@ -121,6 +148,7 @@ public class GameView extends View{
             b.birdX += b.velocity;
             if (b.birdX > dWidth + b.getWidth()){
                 b.resetPosition();
+                life--;
             }
         }
 
@@ -134,6 +162,12 @@ public class GameView extends View{
                 if (grains.get(i).x >= birds.get(0).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         birds.get(0).birdX + birds.get(0).getWidth()) &&
                         grains.get(i).y >= birds.get(0).birdY && grains.get(i).y <= (birds.get(0).birdY + birds.get(0).getHeight())) {
+
+                    Hearted hearted = new Hearted(context);
+                    hearted.heartedX = birds.get(0).birdX + birds.get(0).getWidth() / 2 - hearted.getHeartedWidth() / 2;
+                    hearted.heartedY = birds.get(0).birdY + birds.get(0).getHeight() / 2 - hearted.getHeartedHeight() / 2;
+                    hearteds.add(hearted);
+
                     birds.get(0).resetPosition();
                     count++;
                     grains.remove(i);
@@ -143,6 +177,12 @@ public class GameView extends View{
                 }else if (grains.get(i).x >= birds.get(1).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         birds.get(1).birdX + birds.get(1).getWidth()) &&
                         grains.get(i).y >= birds.get(1).birdY && grains.get(i).y <= (birds.get(1).birdY + birds.get(1).getHeight())) {
+
+                    Hearted hearted = new Hearted(context);
+                    hearted.heartedX = birds.get(1).birdX + birds.get(1).getWidth() / 2 - hearted.getHeartedWidth() / 2;
+                    hearted.heartedY = birds.get(1).birdY + birds.get(1).getHeight() / 2 - hearted.getHeartedHeight() / 2;
+                    hearteds.add(hearted);
+
                     birds.get(1).resetPosition();
                     count++;
                     grains.remove(i);
@@ -152,6 +192,12 @@ public class GameView extends View{
                 }else if (grains.get(i).x >= butterflies.get(0).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         butterflies.get(0).birdX + butterflies.get(0).getWidth()) &&
                         grains.get(i).y >= butterflies.get(0).birdY && grains.get(i).y <= (butterflies.get(0).birdY + butterflies.get(0).getHeight())) {
+
+                    Hearted hearted = new Hearted(context);
+                    hearted.heartedX = butterflies.get(0).birdX + butterflies.get(0).getWidth() / 2 - hearted.getHeartedWidth() / 2;
+                    hearted.heartedY = butterflies.get(0).birdY + butterflies.get(0).getHeight() / 2 - hearted.getHeartedHeight() / 2;
+                    hearteds.add(hearted);
+
                     butterflies.get(0).resetPosition();
                     count++;
                     grains.remove(i);
@@ -161,6 +207,12 @@ public class GameView extends View{
                 }else if (grains.get(i).x >= butterflies.get(1).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         butterflies.get(1).birdX + butterflies.get(1).getWidth()) &&
                         grains.get(i).y >= butterflies.get(1).birdY && grains.get(i).y <= (butterflies.get(1).birdY + butterflies.get(1).getHeight())) {
+
+                    Hearted hearted = new Hearted(context);
+                    hearted.heartedX = butterflies.get(1).birdX + butterflies.get(1).getWidth() / 2 - hearted.getHeartedWidth() / 2;
+                    hearted.heartedY = butterflies.get(1).birdY + butterflies.get(1).getHeight() / 2 - hearted.getHeartedHeight() / 2;
+                    hearteds.add(hearted);
+
                     butterflies.get(1).resetPosition();
                     count++;
                     grains.remove(i);
@@ -174,8 +226,20 @@ public class GameView extends View{
             }
         }
 
+        for (int j = 0; j<hearteds.size(); j++){
+            canvas.drawBitmap(hearteds.get(j).getHearted(hearteds.get(j).heartedFrame), hearteds.get(j).heartedX,
+                    hearteds.get(j).heartedY, null);
+            hearteds.get(j).heartedFrame++;
+            if (hearteds.get(j).heartedFrame > 8){
+                hearteds.remove(j);
+            }
+        }
+
         canvas.drawBitmap(hand, (dWidth/2 - handWidth/2), dHeight - handHeight, null);
-        handler.postDelayed(runnable, UPDATE_MILIS);
+        canvas.drawText("Score: " + (count * 10), 0 , TEXT_SIZE, scorePaint);
+        canvas.drawRect(dWidth - 110, 10, dWidth - 110 + 10*life, TEXT_SIZE, healthPaint);
+
+        handler.postDelayed(runnable, UPDATE_MILIS); //delay, increases performance
     }
 
     @Override
