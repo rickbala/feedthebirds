@@ -2,6 +2,7 @@ package com.rickbala.myfrickinggame;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -52,6 +53,7 @@ public class GameView extends View{
     int take = 0;
     int bg = 0;
     int next = 0;
+    int gameover = 0;
 
     Paint scorePaint;
     final int TEXT_SIZE = 60;
@@ -111,10 +113,11 @@ public class GameView extends View{
         handWidth = hand.getWidth();
         handHeight = hand.getHeight();
 
-        sp = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        sp = new SoundPool(7, AudioManager.STREAM_MUSIC, 0);
         give = sp.load(context, R.raw.give, 1);
         take = sp.load(context, R.raw.take, 1);
         next = sp.load(context, R.raw.next, 1);
+        gameover = sp.load(context, R.raw.gameover, 1);
         bg = sp.load(context, R.raw.bg, 1);
 
         scorePaint = new Paint();
@@ -129,12 +132,6 @@ public class GameView extends View{
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
-        if (life < 1){
-            //Intent intent = new Intent(context, GameOver.class);
-            //intent.putExtra("Score", (count * 10));
-            //context.startActivity(intent);
-            ((Activity) context).finish();
-        }
 
         if (count > 125) canvas.drawBitmap(background8, null, rect, null);
         else if (count > 110) canvas.drawBitmap(background7, null, rect, null);
@@ -156,6 +153,13 @@ public class GameView extends View{
             if (b.birdX < -b.getWidth()){
                 b.resetPosition(count);
                 life--;
+                if (life == 0){
+                    sp.play(gameover, 1, 1, 0, 0, 1);
+                    Intent intent = new Intent(context, GameOver.class);
+                    intent.putExtra("score", (count * 10));
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                }
             }
         }
 
@@ -169,6 +173,13 @@ public class GameView extends View{
             if (b.birdX > dWidth + b.getWidth()){
                 b.resetPosition(count);
                 life--;
+                if (life == 0){
+                    sp.play(gameover, 1, 1, 0, 0, 1);
+                    Intent intent = new Intent(context, GameOver.class);
+                    intent.putExtra("score", (count * 10));
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                }
             }
         }
 
