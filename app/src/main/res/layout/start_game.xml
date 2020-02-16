@@ -2,18 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/viewAd"
+    <FrameLayout
+        android:id="@+id/adFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@android:color/black" />
 
-        android:background="@color/colorAccent" />
-
-    <View
-        android:id="@+id/viewGame"
+    <FrameLayout
+        android:id="@+id/gameFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_below="@id/viewAd"
-        android:background="@color/colorPrimaryDark" />
+        android:layout_below="@id/adFrameLayout" />
 </RelativeLayout>

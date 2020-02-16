@@ -3,8 +3,8 @@ package com.rickbala.myfrickinggame;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 
@@ -16,14 +16,17 @@ public class StartGame extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //use starg_game.xml as layout
+        setContentView(R.layout.start_game);
+
+        //instantiate main game view
         gameView = new GameView(this);
 
-        //setContentView(R.layout.start_game);
-
-        setContentView(gameView);
+        //assign game view to the layout below the ad
+        FrameLayout gameFrameLayout = (FrameLayout)findViewById(R.id.gameFrameLayout);
+        gameFrameLayout.addView(gameView);
     }
 
     @Override
