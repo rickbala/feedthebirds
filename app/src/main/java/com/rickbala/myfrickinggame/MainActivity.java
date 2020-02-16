@@ -16,6 +16,12 @@ public class MainActivity extends Activity {
     public void startGame(View v){
         Intent intent = new Intent(this, StartGame.class);
         startActivity(intent);
-        finish(); //preventes the player from pressing the back button
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Intent toStopBGMusic = new Intent(this, MusicService.class);
+        stopService(toStopBGMusic);
     }
 }

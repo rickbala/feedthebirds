@@ -65,6 +65,9 @@ public class GameView extends View{
         super(context);
         this.context = context; //?
 
+        Intent toPlayBGMusic = new Intent(context, MusicService.class);
+        context.startService(toPlayBGMusic);
+
         background0 = BitmapFactory.decodeResource(getResources(), R.drawable.background0);
         background1 = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
         background2 = BitmapFactory.decodeResource(getResources(), R.drawable.background2);
@@ -154,11 +157,10 @@ public class GameView extends View{
                 b.resetPosition(count);
                 life--;
                 if (life == 0){
-                    sp.play(gameover, 1, 1, 0, 0, 1);
+                    sp.play(gameover, 0.75f, 0.75f, 0, 0, 1);
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("score", (count * 10));
                     context.startActivity(intent);
-                    ((Activity) context).finish();
                 }
             }
         }
@@ -174,11 +176,10 @@ public class GameView extends View{
                 b.resetPosition(count);
                 life--;
                 if (life == 0){
-                    sp.play(gameover, 1, 1, 0, 0, 1);
+                    sp.play(gameover, 0.75f, 0.75f, 0, 0, 1);
                     Intent intent = new Intent(context, GameOver.class);
                     intent.putExtra("score", (count * 10));
                     context.startActivity(intent);
-                    ((Activity) context).finish();
                 }
             }
         }
@@ -204,7 +205,7 @@ public class GameView extends View{
                     playNextLevel();
                     grains.remove(i);
                     if (take != 0){
-                        sp.play(take, 1, 1, 0, 0, 1);
+                        sp.play(take, 0.4f, 0.4f, 0, 0, 1);
                     }
                 }else if (grains.get(i).x >= birds.get(1).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         birds.get(1).birdX + birds.get(1).getWidth()) &&
@@ -220,7 +221,7 @@ public class GameView extends View{
                     playNextLevel();
                     grains.remove(i);
                     if (take != 0){
-                        sp.play(take, 1, 1, 0, 0, 1);
+                        sp.play(take, 0.4f, 0.4f, 0, 0, 1);
                     }
                 }else if (grains.get(i).x >= butterflies.get(0).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         butterflies.get(0).birdX + butterflies.get(0).getWidth()) &&
@@ -236,7 +237,7 @@ public class GameView extends View{
                     playNextLevel();
                     grains.remove(i);
                     if (take != 0){
-                        sp.play(take, 1, 1, 0, 0, 1);
+                        sp.play(take, 0.4f, 0.4f, 0, 0, 1);
                     }
                 }else if (grains.get(i).x >= butterflies.get(1).birdX && (grains.get(i).x + grains.get(i).getGrainWidth() <=
                         butterflies.get(1).birdX + butterflies.get(1).getWidth()) &&
@@ -252,7 +253,7 @@ public class GameView extends View{
                     playNextLevel();
                     grains.remove(i);
                     if (take != 0){
-                        sp.play(take, 1, 1, 0, 0, 1);
+                        sp.play(take, 0.4f, 0.4f, 0, 0, 1);
                     }
                 }
 
@@ -281,7 +282,7 @@ public class GameView extends View{
         if (next != 0)
             if (count == 15 || count == 30 || count == 45 || count == 60 || count == 75 ||
                 count == 90 || count == 105 || count == 120 )
-                sp.play(next, 1, 1, 1, 0, 1);
+                sp.play(next, 0.75f, 0.75f, 1, 0, 1);
     }
 
     @Override
@@ -293,7 +294,7 @@ public class GameView extends View{
                     Grain g = new Grain(context);
                     grains.add(g);
                     if (give != 0){
-                        sp.play(give, 1, 1, 0, 0, 1);
+                        sp.play(give, 0.5f, 0.5f, 0, 0, 1);
                     }
                 }
             }

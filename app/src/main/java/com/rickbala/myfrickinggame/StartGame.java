@@ -1,6 +1,7 @@
 package com.rickbala.myfrickinggame;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,5 +20,17 @@ public class StartGame extends Activity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         gameView = new GameView(this);
         setContentView(gameView);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //do nothing
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Intent toStopBGMusic = new Intent(this, MusicService.class);
+        stopService(toStopBGMusic);
     }
 }
