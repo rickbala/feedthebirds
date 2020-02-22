@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@android:color/black"
+        android:minHeight="50dp"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
     </com.google.android.gms.ads.AdView>
@@ -23,6 +24,7 @@
         android:id="@+id/gameFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/black"
         android:layout_below="@id/adView" />
 
 </RelativeLayout>

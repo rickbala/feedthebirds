@@ -25,7 +25,6 @@ public class StartGame extends Activity {
 
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        //use start_game.xml as layout
         setContentView(R.layout.start_game);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -56,4 +55,5 @@ public class StartGame extends Activity {
         Intent toStopBGMusic = new Intent(this, MusicService.class);
         stopService(toStopBGMusic);
     }
+
 }

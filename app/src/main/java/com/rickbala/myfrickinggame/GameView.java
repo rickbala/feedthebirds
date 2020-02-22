@@ -83,8 +83,11 @@ public class GameView extends View{
         Display display = ((Activity)getContext()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+
+        int px = (int)(50 * getResources().getDisplayMetrics().density + 0.5f);//50dp for the ad
         dWidth = size.x;
-        dHeight = size.y;
+        dHeight = size.y - px;
+
         rect = new Rect(0, 0, dWidth, dHeight);
         hearteds = new ArrayList<>();
 
